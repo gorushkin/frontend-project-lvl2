@@ -1,15 +1,4 @@
 #!/usr/bin/env node
-import program from 'commander';
-import {
-  version
-} from '../../package.json';
+import app from '..';
 
-program
-  .version(version)
-  .arguments('<firstConfig> <secondConfig>')
-  .description('Compares two configuration files and shows a difference.')
-  .option('-f, --format [type]', 'output format')
-  .action((firstConfig, secondConfig) => {
-    console.log(firstConfig, secondConfig);
-  })
-  .parse(process.argv);
+app();
