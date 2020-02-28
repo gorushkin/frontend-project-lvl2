@@ -1,4 +1,16 @@
 #!/usr/bin/env node
-import app from '..';
+import program from 'commander';
+import {
+  version,
+} from '../../package.json';
+import gendiff from '..';
 
-app();
+program
+  .version(version)
+  .arguments('<firstConfig> <secondConfig>')
+  .description('Compares two configuration files and shows a difference.')
+  .option('-f, --format [type]', 'output format')
+  .action((firstConfig, secondConfig) => {
+    console.log(gendiff(firstConfig, secondConfig));
+  })
+  .parse(process.argv);
