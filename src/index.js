@@ -16,15 +16,15 @@ const gendiff = (firstPath, secondPath) => {
   const tempArray = firstConfigKeys.reduce((acc, element) => {
     if (_.has(secondConfig, element)) {
       if (firstConfig[element] === secondConfig[element]) {
-        return [...acc, `  ${firstConfig[element]}`];
+        return [...acc, `    ${element}: ${firstConfig[element]}`];
       }
-      return [...acc, `- ${element}: ${firstConfig[element]}`, `+ ${element}: ${secondConfig[element]}`];
+      return [...acc, `  - ${element}: ${firstConfig[element]}`, `  + ${element}: ${secondConfig[element]}`];
     }
-    return [...acc, `- ${element}: ${firstConfig[element]}`];
+    return [...acc, `  - ${element}: ${firstConfig[element]}`];
   }, []);
   const finishArray = secondConfigKeys.reduce((acc, element) => {
     if (_.has(firstConfig, element)) return acc;
-    return [...acc, `+ ${element}: ${secondConfig[element]}`];
+    return [...acc, `  + ${element}: ${secondConfig[element]}`];
   }, tempArray);
   const result = `{\n${finishArray.join('\n')}\n}`;
   return result;
