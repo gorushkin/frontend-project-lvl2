@@ -4,4 +4,9 @@
 # Hexlet 
 ## Вычислитель отличий
 
+
+#### .JSON
 [![asciicast](https://asciinema.org/a/SZWgPaEqQRqkagFhvNJiuNWnj.svg)](https://asciinema.org/a/SZWgPaEqQRqkagFhvNJiuNWnj)
+
+#### .YML
+[![asciicast](https://asciinema.org/a/FHHOXl47oIuRSrXcSAtNNN5fU.svg)](https://asciinema.org/a/FHHOXl47oIuRSrXcSAtNNN5fU)

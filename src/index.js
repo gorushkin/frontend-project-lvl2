@@ -1,16 +1,11 @@
-import fs from 'fs';
-import path from 'path';
 // import process from 'process';
 import _ from 'lodash';
-
+import parser from './parsers';
 
 // const workingDir = process.cwd();
 
 const gendiff = (firstPath, secondPath) => {
-  const absFirstPath = path.resolve(firstPath);
-  const absSecondPath = path.resolve(secondPath);
-  const firstConfig = JSON.parse(fs.readFileSync(absFirstPath, 'utf8'));
-  const secondConfig = JSON.parse(fs.readFileSync(absSecondPath, 'utf8'));
+  const [firstConfig, secondConfig] = parser(firstPath, secondPath);
   const firstConfigKeys = Object.keys(firstConfig);
   const secondConfigKeys = Object.keys(secondConfig);
   const tempArray = firstConfigKeys.reduce((acc, element) => {
