@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
+import INI from 'ini';
 
 const extensions = {
   json: (file) => JSON.parse(file),
   yml: (file) => YAML.parse(file),
+  ini: (file) => INI.parse(file),
 };
 
 const parser = (firstPath, secondPath) => {

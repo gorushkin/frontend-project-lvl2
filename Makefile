@@ -7,6 +7,9 @@ json:
 yml:
 	npx babel-node src/bin/gendiff.js __tests__/fixtures/before.yml __tests__/fixtures/after.yml
 
+ini:
+	npx babel-node src/bin/gendiff.js __tests__/fixtures/before.ini __tests__/fixtures/after.ini
+
 test:
 	npm test
 

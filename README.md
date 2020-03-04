@@ -10,3 +10,6 @@
 
 #### .YML
 [![asciicast](https://asciinema.org/a/FHHOXl47oIuRSrXcSAtNNN5fU.svg)](https://asciinema.org/a/FHHOXl47oIuRSrXcSAtNNN5fU)
+
+#### .INI
+[![asciicast](https://asciinema.org/a/1YTqfwHHf2TcBka8xUfRz6EgN.svg)](https://asciinema.org/a/1YTqfwHHf2TcBka8xUfRz6EgN)
