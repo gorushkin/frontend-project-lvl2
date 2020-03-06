@@ -1,8 +1,7 @@
 // import process from 'process';
-import _ from 'lodash';
 import parser from './parsers';
 import generateDiffs from './generateDiff';
-import renderDiff from './render'
+import renderDiff from './render';
 
 const gendiff = (firstPath, secondPath) => {
   const [firstConfig, secondConfig] = parser(firstPath, secondPath);
