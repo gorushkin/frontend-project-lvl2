@@ -1,27 +1,13 @@
 // import process from 'process';
 import _ from 'lodash';
 import parser from './parsers';
-
-// const workingDir = process.cwd();
+import generateDiffs from './generateDiff';
+import renderDiff from './render'
 
 const gendiff = (firstPath, secondPath) => {
   const [firstConfig, secondConfig] = parser(firstPath, secondPath);
-  const firstConfigKeys = Object.keys(firstConfig);
-  const secondConfigKeys = Object.keys(secondConfig);
-  const tempArray = firstConfigKeys.reduce((acc, element) => {
-    if (_.has(secondConfig, element)) {
-      if (firstConfig[element] === secondConfig[element]) {
-        return [...acc, `    ${element}: ${firstConfig[element]}`];
-      }
-      return [...acc, `  - ${element}: ${firstConfig[element]}`, `  + ${element}: ${secondConfig[element]}`];
-    }
-    return [...acc, `  - ${element}: ${firstConfig[element]}`];
-  }, []);
-  const finishArray = secondConfigKeys.reduce((acc, element) => {
-    if (_.has(firstConfig, element)) return acc;
-    return [...acc, `  + ${element}: ${secondConfig[element]}`];
-  }, tempArray);
-  const result = `{\n${finishArray.join('\n')}\n}`;
+  const diffs = generateDiffs(firstConfig, secondConfig);
+  const result = renderDiff(diffs);
   return result;
 };
 
