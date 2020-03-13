@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import _ from 'lodash';
 
 const sortArr = (arr) => {
@@ -11,15 +13,14 @@ const sortArr = (arr) => {
 };
 
 const stringify = (obj, depth) => {
-  // const spaces = '  '.repeat(depth);
   if (typeof obj === 'object') {
-    const spaces = '  '.repeat(depth + 1);
-    const tempResult = Object.keys(obj).reduce((acc, key) => [...acc, `${spaces}    ${key}: ${obj[key]}`], []);
-    const result = `\n${tempResult.join('\n')}`;
-    return `{${spaces} ${result}\n${spaces}}`;
+    const spaces = '  '.repeat(depth + 1)
+    console.log('--------------');
+    console.log('obj: ', obj);
+    return `{\n${spaces}  myObj\n${spaces}}`;
   }
-  return obj;
-};
+  return obj
+}
 
 const renderDiff = (array) => {
   const iter = (diff, depth) => {
@@ -28,7 +29,7 @@ const renderDiff = (array) => {
     const result = sortedDiff.reduce((acc, note) => {
       if (_.has(note, 'children')) {
         const children = iter(note.children, depth + 2);
-        return [...acc, `${spaces}  ${note.key}: {`, ...children, `  ${spaces}}`];
+        return [...acc, `${spaces}  ${note.key}: {`, ...children, `${spaces}}`];
       }
       if (_.has(note, 'value2')) {
         if (_.has(note, 'value1')) {
@@ -36,9 +37,10 @@ const renderDiff = (array) => {
             return [...acc, `${spaces}  ${note.key}: ${note.value1}`];
           } return [...acc, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`];
         }
-        return [...acc, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`];
+        const renderObj = stringify(note);
+        return [...acc, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`]; // ---
       }
-      return [...acc, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`];
+      return [...acc, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`]; 
     }, []);
     return result;
   };
