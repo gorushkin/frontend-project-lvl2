@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+// На основе массива создает строку с различиями
+
 const sortArr = (arr) => {
   const result = arr.slice().sort((a, b) => {
     if (a.key >= b.key) {
@@ -16,7 +18,7 @@ const stringify = (obj, depth) => {
     const spaces = '  '.repeat(depth + 1);
     const tempResult = Object.keys(obj).reduce((acc, key) => [...acc, `${spaces}    ${key}: ${obj[key]}`], []);
     const result = `\n${tempResult.join('\n')}`;
-    return `{${spaces} ${result}\n${spaces}}`;
+    return `{${result}\n${spaces}}`;
   }
   return obj;
 };
@@ -34,7 +36,7 @@ const renderDiff = (array) => {
         if (_.has(note, 'value1')) {
           if (note.value1 === note.value2) {
             return [...acc, `${spaces}  ${note.key}: ${note.value1}`];
-          } return [...acc, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`];
+          } return [...acc, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`];
         }
         return [...acc, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`];
       }
