@@ -6,10 +6,10 @@ const jsonPaths = {
   pathSecond: `${__dirname}/__fixtures__/after.json`,
 };
 
-// const ymlPaths = {
-//   pathFirst: `${__dirname}/__fixtures__/before.yml`,
-//   pathSecond: `${__dirname}/__fixtures__/after.yml`,
-// };
+const ymlPaths = {
+  pathFirst: `${__dirname}/__fixtures__/before.yml`,
+  pathSecond: `${__dirname}/__fixtures__/after.yml`,
+};
 
 // const iniPaths = {
 //   pathFirst: `${__dirname}/__fixtures__/before.ini`,
@@ -38,17 +38,17 @@ describe('jsonPaths', () => {
   });
 });
 
-// describe('ymlPaths', () => {
-//   test('чтение и сравнение файлов YML', () => {
-//     const result = gendiff(ymlPaths.pathFirst, ymlPaths.pathSecond);
-//     expect(result).toEqual(correctFiles.file1);
-//   });
+describe('ymlPaths', () => {
+  test('чтение и сравнение файлов YML', () => {
+    const result = gendiff(ymlPaths.pathFirst, ymlPaths.pathSecond);
+    expect(result).toEqual(correctFiles.file1);
+  });
 
-//   test('чтение и сравнение файлов в обратном порядке YML', () => {
-//     const result = gendiff(ymlPaths.pathSecond, ymlPaths.pathFirst);
-//     expect(result).toEqual(correctFiles.file2);
-//   });
-// });
+  test('чтение и сравнение файлов в обратном порядке YML', () => {
+    const result = gendiff(ymlPaths.pathSecond, ymlPaths.pathFirst);
+    expect(result).toEqual(correctFiles.file2);
+  });
+});
 
 // describe('iniPaths', () => {
 //   test('чтение и сравнение файлов INI', () => {
