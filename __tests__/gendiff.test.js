@@ -11,10 +11,10 @@ const ymlPaths = {
   pathSecond: `${__dirname}/__fixtures__/after.yml`,
 };
 
-// const iniPaths = {
-//   pathFirst: `${__dirname}/__fixtures__/before.ini`,
-//   pathSecond: `${__dirname}/__fixtures__/after.ini`,
-// };
+const iniPaths = {
+  pathFirst: `${__dirname}/__fixtures__/before.ini`,
+  pathSecond: `${__dirname}/__fixtures__/after.ini`,
+};
 
 const correctFilesPaths = {
   result1: `${__dirname}/__fixtures__/result1`,
@@ -50,14 +50,14 @@ describe('ymlPaths', () => {
   });
 });
 
-// describe('iniPaths', () => {
-//   test('чтение и сравнение файлов INI', () => {
-//     const result = gendiff(iniPaths.pathFirst, iniPaths.pathSecond);
-//     expect(result).toEqual(correctFiles.file1);
-//   });
+describe('iniPaths', () => {
+  test('чтение и сравнение файлов INI', () => {
+    const result = gendiff(iniPaths.pathFirst, iniPaths.pathSecond);
+    expect(result).toEqual(correctFiles.file1);
+  });
 
-//   test('чтение и сравнение файлов в обратном порядке INI', () => {
-//     const result = gendiff(iniPaths.pathSecond, iniPaths.pathFirst);
-//     expect(result).toEqual(correctFiles.file2);
-//   });
-// });
+  test('чтение и сравнение файлов в обратном порядке INI', () => {
+    const result = gendiff(iniPaths.pathSecond, iniPaths.pathFirst);
+    expect(result).toEqual(correctFiles.file2);
+  });
+});
