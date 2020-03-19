@@ -10,6 +10,8 @@ const extensions = {
 };
 
 const parser = (firstPath, secondPath) => {
+  console.log('secondPath: ', secondPath);
+  console.log('firstPath: ', firstPath);
   const absFirstPath = path.resolve(firstPath);
   const absSecondPath = path.resolve(secondPath);
   const firstFile = fs.readFileSync(absFirstPath, 'utf8');

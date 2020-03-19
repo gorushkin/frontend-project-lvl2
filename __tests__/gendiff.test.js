@@ -2,23 +2,23 @@ import fs from 'fs';
 import gendiff from '../src/index';
 
 const jsonPaths = {
-  pathFirst: `${__dirname}/__fixtures__/before.json`,
-  pathSecond: `${__dirname}/__fixtures__/after.json`,
+  pathFirst: `${__dirname}/../__fixtures__/before.json`,
+  pathSecond: `${__dirname}/../__fixtures__/after.json`,
 };
 
 const ymlPaths = {
-  pathFirst: `${__dirname}/__fixtures__/before.yml`,
-  pathSecond: `${__dirname}/__fixtures__/after.yml`,
+  pathFirst: `${__dirname}/../__fixtures__/before.yml`,
+  pathSecond: `${__dirname}/../__fixtures__/after.yml`,
 };
 
 const iniPaths = {
-  pathFirst: `${__dirname}/__fixtures__/before.ini`,
-  pathSecond: `${__dirname}/__fixtures__/after.ini`,
+  pathFirst: `${__dirname}/../__fixtures__/before.ini`,
+  pathSecond: `${__dirname}/../__fixtures__/after.ini`,
 };
 
 const correctFilesPaths = {
-  result1: `${__dirname}/__fixtures__/result1`,
-  result2: `${__dirname}/__fixtures__/result2`,
+  result1: `${__dirname}/../__fixtures__/result1.txt`,
+  result2: `${__dirname}/../__fixtures__/result2.txt`,
 };
 
 const correctFiles = {
