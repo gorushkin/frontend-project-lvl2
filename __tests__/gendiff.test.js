@@ -19,44 +19,58 @@ const iniPaths = {
 const correctFilesPaths = {
   result1: `${__dirname}/../__fixtures__/result1.txt`,
   result2: `${__dirname}/../__fixtures__/result2.txt`,
+  result3: `${__dirname}/../__fixtures__/result3.txt`,
+  result4: `${__dirname}/../__fixtures__/result4.txt`,
 };
 
 const correctFiles = {
   file1: fs.readFileSync(correctFilesPaths.result1, 'utf-8'),
   file2: fs.readFileSync(correctFilesPaths.result2, 'utf-8'),
+  file3: fs.readFileSync(correctFilesPaths.result3, 'utf-8'),
+  // file4: fs.readFileSync(correctFilesPaths.result4, 'utf-8'),
 };
 
 describe('jsonPaths', () => {
-  test('чтение и сравнение файлов JSON', () => {
+  test('чтение и сравнение файлов JSON. Вывод в полном формате', () => {
     const result = gendiff(jsonPaths.pathFirst, jsonPaths.pathSecond);
     expect(result).toEqual(correctFiles.file1);
   });
 
-  test('чтение и сравнение файлов в обратном порядке JSON', () => {
+  test('чтение и сравнение файлов в обратном порядке JSON. Вывод в полном формате', () => {
     const result = gendiff(jsonPaths.pathSecond, jsonPaths.pathFirst);
     expect(result).toEqual(correctFiles.file2);
   });
+
+  test('чтение и сравнение файлов JSON. Вывод в плоском формате', () => {
+    const result = gendiff(jsonPaths.pathFirst, jsonPaths.pathSecond, 'plain');
+    expect(result).toEqual(correctFiles.file3);
+  });
+
+  // test('чтение и сравнение файлов в обратном порядке JSON. Вывод в плоском формате', () => {
+  //   const result = gendiff(jsonPaths.pathSecond, jsonPaths.pathFirst, 'plain');
+  //   expect(result).toEqual(correctFiles.file4);
+  // });
 });
 
 describe('ymlPaths', () => {
-  test('чтение и сравнение файлов YML', () => {
+  test('чтение и сравнение файлов YML. Вывод в полном формате', () => {
     const result = gendiff(ymlPaths.pathFirst, ymlPaths.pathSecond);
     expect(result).toEqual(correctFiles.file1);
   });
 
-  test('чтение и сравнение файлов в обратном порядке YML', () => {
+  test('чтение и сравнение файлов в обратном порядке YML. Вывод в полном формате', () => {
     const result = gendiff(ymlPaths.pathSecond, ymlPaths.pathFirst);
     expect(result).toEqual(correctFiles.file2);
   });
 });
 
 describe('iniPaths', () => {
-  test('чтение и сравнение файлов INI', () => {
+  test('чтение и сравнение файлов INI. Вывод в полном формате', () => {
     const result = gendiff(iniPaths.pathFirst, iniPaths.pathSecond);
     expect(result).toEqual(correctFiles.file1);
   });
 
-  test('чтение и сравнение файлов в обратном порядке INI', () => {
+  test('чтение и сравнение файлов в обратном порядке INI. Вывод в полном формате', () => {
     const result = gendiff(iniPaths.pathSecond, iniPaths.pathFirst);
     expect(result).toEqual(correctFiles.file2);
   });

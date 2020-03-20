@@ -3,7 +3,7 @@ import renderPlainDiff from './renderPlainDiff';
 
 const formatters = {
   full: (array) => renderFullDiff(array),
-  plain: (array) => renderPlainDiff(array)
-}
+  plain: (array) => renderPlainDiff(array),
+};
 
-export default (array, option) => formatters[option](array);
+export default (array, option = 'full') => formatters[option](array);

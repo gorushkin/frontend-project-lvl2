@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import fs from 'fs';
-
 
 // герерирует и возвращает массив со всеми ключами и различиями
 const generateDiffs = (obj1, obj2) => {
