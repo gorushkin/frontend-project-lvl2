@@ -1,12 +1,12 @@
-// import process from 'process';
 import parser from './parsers';
 import generateDiffs from './generateDiff';
-import renderDiff from './render';
+import render from './formatters';
+
 
 const gendiff = (firstPath, secondPath, formatOption) => {
   const [firstConfig, secondConfig] = parser(firstPath, secondPath);
   const diffs = generateDiffs(firstConfig, secondConfig);
-  const result = renderDiff(diffs, formatOption);
+  const result = render(diffs, formatOption);
   return result;
 };
 

@@ -22,13 +22,7 @@ const stringify = (obj, depth) => {
   return obj;
 };
 
-const formatters = {
-  full: (array) => renderFull(array),
-  plain: (array) => renderPlain(array)
-}
-
-const renderDiff = (array, option) => {
-  console.log(`------------------------${option}--------------------------`);
+const renderFullDiff = (array) => {
   const iter = (diff, depth) => {
     const spaces = '  '.repeat(depth);
     const sortedDiff = sortArr(diff);
@@ -55,4 +49,4 @@ const renderDiff = (array, option) => {
   return result;
 };
 
-export default renderDiff;
+export default renderFullDiff;
