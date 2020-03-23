@@ -13,3 +13,6 @@
 
 #### .INI
 [![asciicast](https://asciinema.org/a/1YTqfwHHf2TcBka8xUfRz6EgN.svg)](https://asciinema.org/a/1YTqfwHHf2TcBka8xUfRz6EgN)
+
+#### Plain and Full format
+[![asciicast](https://asciinema.org/a/TpOTjo0Cq4ZHKSRKI7ZaigovX.svg)](https://asciinema.org/a/TpOTjo0Cq4ZHKSRKI7ZaigovX)
