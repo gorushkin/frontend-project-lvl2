@@ -21,6 +21,7 @@ const correctFilesPaths = {
   result2: `${__dirname}/../__fixtures__/result2.txt`,
   result3: `${__dirname}/../__fixtures__/result3.txt`,
   result4: `${__dirname}/../__fixtures__/result4.txt`,
+  result5: `${__dirname}/../__fixtures__/result5.txt`,
 };
 
 const correctFiles = {
@@ -28,6 +29,7 @@ const correctFiles = {
   file2: fs.readFileSync(correctFilesPaths.result2, 'utf-8'),
   file3: fs.readFileSync(correctFilesPaths.result3, 'utf-8'),
   file4: fs.readFileSync(correctFilesPaths.result4, 'utf-8'),
+  file5: fs.readFileSync(correctFilesPaths.result5, 'utf-8'),
 };
 
 describe('jsonPaths', () => {
@@ -49,6 +51,11 @@ describe('jsonPaths', () => {
   test('чтение и сравнение файлов в обратном порядке JSON. Вывод в плоском формате', () => {
     const result = gendiff(jsonPaths.pathSecond, jsonPaths.pathFirst, 'plain');
     expect(result).toEqual(correctFiles.file4);
+  });
+
+  test('чтение и сравнение файлов JSON. Вывод в формате JSON', () => {
+    const result = gendiff(jsonPaths.pathFirst, jsonPaths.pathSecond, 'json');
+    expect(result).toEqual(correctFiles.file5);
   });
 });
 
