@@ -9,17 +9,27 @@ const extensions = {
   ini: (file) => INI.parse(file),
 };
 
-const parser = (firstPath, secondPath) => {
-  const absFirstPath = path.resolve(firstPath);
-  const absSecondPath = path.resolve(secondPath);
-  const firstFile = fs.readFileSync(absFirstPath, 'utf8');
-  const secondFile = fs.readFileSync(absSecondPath, 'utf8');
-  const firstFileExt = path.extname(absFirstPath).substring(1);
-  const secondFileExt = path.extname(absSecondPath).substring(1);
-  const firstConfig = extensions[firstFileExt](firstFile);
-  const secondConfig = extensions[secondFileExt](secondFile);
+const readFile = (filePath) => {
+  const absPath = path.resolve(filePath);
+  const data = fs.readFileSync(absPath, 'utf8');
+  return data;
+}
 
-  return [firstConfig, secondConfig];
+const getFileExtension = (filePath) => {
+  const absPath = path.resolve(filePath);
+  return path.extname(absPath).substring(1);
+}
+const parse = (data, type) => {
+  const result = extensions[type](data);
+  return result;
+}
+
+export default (path1, path2) => {
+  const data1 = readFile(path1);
+  const data2 = readFile(path2);
+  const file1Extension = getFileExtension(path1);
+  const file2Extension = getFileExtension(path2);
+  const config1 = parse(data1, file1Extension);
+  const config2 = parse(data2, file2Extension);
+  return [config1, config2];
 };
-
-export default parser;
