@@ -17,11 +17,11 @@ const iniPaths = {
 };
 
 const correctFilesPaths = {
-  result1: `${__dirname}/../__fixtures__/result1.txt`,
-  result2: `${__dirname}/../__fixtures__/result2.txt`,
-  result3: `${__dirname}/../__fixtures__/result3.txt`,
-  result4: `${__dirname}/../__fixtures__/result4.txt`,
-  result5: `${__dirname}/../__fixtures__/result5.txt`,
+  result1: `${__dirname}/../__fixtures__/fullFomatDirectOrder.txt`,
+  result2: `${__dirname}/../__fixtures__/fullFomatReversOrder.txt`,
+  result3: `${__dirname}/../__fixtures__/plainFomatDirectOrder.txt`,
+  result4: `${__dirname}/../__fixtures__/plainFomatReversOrder.txt`,
+  result5: `${__dirname}/../__fixtures__/jsonFormatDirectOrder.txt`,
 };
 
 const correctFiles = {
