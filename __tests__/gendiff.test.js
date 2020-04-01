@@ -1,23 +1,9 @@
 import fs from 'fs';
 import gendiff from '../src/index';
 
-
 const fixturesPath = `${__dirname}/../__fixtures__/`
 
-const jsonPaths = {
-  pathFirst: `${fixturesPath}before.json`,
-  pathSecond: `${fixturesPath}after.json`,
-};
-
-const ymlPaths = {
-  pathFirst: `${fixturesPath}before.yml`,
-  pathSecond: `${fixturesPath}after.yml`,
-};
-
-const iniPaths = {
-  pathFirst: `${fixturesPath}before.ini`,
-  pathSecond: `${fixturesPath}after.ini`,
-};
+const getPath = (type, order) => `${fixturesPath}${order}.${type}`;
 
 const correctFilesPaths = {
   result1: `${fixturesPath}fullFomatDirectOrder.txt`,
@@ -35,73 +21,26 @@ const correctFiles = {
   file5: fs.readFileSync(correctFilesPaths.result5, 'utf-8'),
 };
 
-describe('jsonPaths', () => {
-  test('чтение и сравнение файлов JSON. Вывод в полном формате', () => {
-    const result = gendiff(jsonPaths.pathFirst, jsonPaths.pathSecond);
-    expect(result).toEqual(correctFiles.file1);
-  });
+const inputFileTypes = [
+  ['json'],
+  ['yml'],
+  ['ini'],
+];
 
-  test('чтение и сравнение файлов в обратном порядке JSON. Вывод в полном формате', () => {
-    const result = gendiff(jsonPaths.pathSecond, jsonPaths.pathFirst);
-    expect(result).toEqual(correctFiles.file2);
-  });
+const tests = [
+  ['before', 'after', 'full', correctFiles.file1],
+  ['after', 'before', 'full',  correctFiles.file2],
+  ['before', 'after',  'plain', correctFiles.file3],
+  ['after', 'before', 'plain', correctFiles.file4],
+  ['before', 'after', 'json', correctFiles.file5],
+]
 
-  test('чтение и сравнение файлов JSON. Вывод в плоском формате', () => {
-    const result = gendiff(jsonPaths.pathFirst, jsonPaths.pathSecond, 'plain');
-    expect(result).toEqual(correctFiles.file3);
-  });
-
-  test('чтение и сравнение файлов в обратном порядке JSON. Вывод в плоском формате', () => {
-    const result = gendiff(jsonPaths.pathSecond, jsonPaths.pathFirst, 'plain');
-    expect(result).toEqual(correctFiles.file4);
-  });
-
-  test('чтение и сравнение файлов JSON. Вывод в формате JSON', () => {
-    const result = gendiff(jsonPaths.pathFirst, jsonPaths.pathSecond, 'json');
-    expect(result).toEqual(correctFiles.file5);
-  });
-});
-
-describe('ymlPaths', () => {
-  test('чтение и сравнение файлов YML. Вывод в полном формате', () => {
-    const result = gendiff(ymlPaths.pathFirst, ymlPaths.pathSecond);
-    expect(result).toEqual(correctFiles.file1);
-  });
-
-  test('чтение и сравнение файлов в обратном порядке YML. Вывод в полном формате', () => {
-    const result = gendiff(ymlPaths.pathSecond, ymlPaths.pathFirst);
-    expect(result).toEqual(correctFiles.file2);
-  });
-
-  test('чтение и сравнение файлов YML. Вывод в плоском формате', () => {
-    const result = gendiff(ymlPaths.pathFirst, ymlPaths.pathSecond, 'plain');
-    expect(result).toEqual(correctFiles.file3);
-  });
-
-  test('чтение и сравнение файлов в обратном порядке YML. Вывод в плоском формате', () => {
-    const result = gendiff(ymlPaths.pathSecond, ymlPaths.pathFirst, 'plain');
-    expect(result).toEqual(correctFiles.file4);
-  });
-});
-
-describe('iniPaths', () => {
-  test('чтение и сравнение файлов INI. Вывод в полном формате', () => {
-    const result = gendiff(iniPaths.pathFirst, iniPaths.pathSecond);
-    expect(result).toEqual(correctFiles.file1);
-  });
-
-  test('чтение и сравнение файлов в обратном порядке INI. Вывод в полном формате', () => {
-    const result = gendiff(iniPaths.pathSecond, iniPaths.pathFirst);
-    expect(result).toEqual(correctFiles.file2);
-  });
-
-  test('чтение и сравнение файлов INI. Вывод в плоском формате', () => {
-    const result = gendiff(iniPaths.pathFirst, iniPaths.pathSecond, 'plain');
-    expect(result).toEqual(correctFiles.file3);
-  });
-
-  test('чтение и сравнение файлов в обратном порядке INI. Вывод в плоском формате', () => {
-    const result = gendiff(iniPaths.pathSecond, iniPaths.pathFirst, 'plain');
-    expect(result).toEqual(correctFiles.file4);
-  });
+describe.each(inputFileTypes)('type %s', (type) => {
+  test.each(tests)(
+    `%s.${type} %s.${type} --format %s`,
+    (firstFile, secondFile, format, expectedResult) => {
+      const result = gendiff(getPath(type, firstFile), getPath(type, secondFile), format);
+      expect(result).toEqual(expectedResult);
+    },
+  );
 });
