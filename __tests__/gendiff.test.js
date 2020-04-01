@@ -1,7 +1,7 @@
 import fs from 'fs';
 import gendiff from '../src/index';
 
-const fixturesPath = `${__dirname}/../__fixtures__/`
+const fixturesPath = `${__dirname}/../__fixtures__/`;
 
 const getPath = (type, order) => `${fixturesPath}${order}.${type}`;
 
@@ -29,11 +29,11 @@ const inputFileTypes = [
 
 const tests = [
   ['before', 'after', 'full', correctFiles.file1],
-  ['after', 'before', 'full',  correctFiles.file2],
-  ['before', 'after',  'plain', correctFiles.file3],
+  ['after', 'before', 'full', correctFiles.file2],
+  ['before', 'after', 'plain', correctFiles.file3],
   ['after', 'before', 'plain', correctFiles.file4],
   ['before', 'after', 'json', correctFiles.file5],
-]
+];
 
 describe.each(inputFileTypes)('type %s', (type) => {
   test.each(tests)(

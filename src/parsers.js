@@ -13,12 +13,12 @@ const readFile = (filePath) => {
   const absPath = path.resolve(filePath);
   const data = fs.readFileSync(absPath, 'utf8');
   return data;
-}
+};
 
 const getFileExtension = (filePath) => {
   const absPath = path.resolve(filePath);
   return path.extname(absPath).substring(1);
-}
+};
 
 const parse = (data, type) => extensions[type](data);
 
