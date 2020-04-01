@@ -19,10 +19,8 @@ const getFileExtension = (filePath) => {
   const absPath = path.resolve(filePath);
   return path.extname(absPath).substring(1);
 }
-const parse = (data, type) => {
-  const result = extensions[type](data);
-  return result;
-}
+
+const parse = (data, type) => extensions[type](data);
 
 export default (path1, path2) => {
   const data1 = readFile(path1);

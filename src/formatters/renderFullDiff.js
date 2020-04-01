@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-// На основе массива создает строку с различиями
-
 const sortArr = (arr) => {
   const result = arr.slice().sort((a, b) => {
     if (a.key >= b.key) {
