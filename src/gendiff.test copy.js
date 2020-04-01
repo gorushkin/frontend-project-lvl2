@@ -1,30 +1,27 @@
 import fs from 'fs';
 import gendiff from '../src/index';
 
-
-const fixturesPath = `${__dirname}/../__fixtures__/`
-
 const jsonPaths = {
-  pathFirst: `${fixturesPath}before.json`,
-  pathSecond: `${fixturesPath}after.json`,
+  pathFirst: `${__dirname}/../__fixtures__/before.json`,
+  pathSecond: `${__dirname}/../__fixtures__/after.json`,
 };
 
 const ymlPaths = {
-  pathFirst: `${fixturesPath}before.yml`,
-  pathSecond: `${fixturesPath}after.yml`,
+  pathFirst: `${__dirname}/../__fixtures__/before.yml`,
+  pathSecond: `${__dirname}/../__fixtures__/after.yml`,
 };
 
 const iniPaths = {
-  pathFirst: `${fixturesPath}before.ini`,
-  pathSecond: `${fixturesPath}after.ini`,
+  pathFirst: `${__dirname}/../__fixtures__/before.ini`,
+  pathSecond: `${__dirname}/../__fixtures__/after.ini`,
 };
 
 const correctFilesPaths = {
-  result1: `${fixturesPath}fullFomatDirectOrder.txt`,
-  result2: `${fixturesPath}fullFomatReversOrder.txt`,
-  result3: `${fixturesPath}plainFomatDirectOrder.txt`,
-  result4: `${fixturesPath}plainFomatReversOrder.txt`,
-  result5: `${fixturesPath}jsonFormatDirectOrder.txt`,
+  result1: `${__dirname}/../__fixtures__/fullFomatDirectOrder.txt`,
+  result2: `${__dirname}/../__fixtures__/fullFomatReversOrder.txt`,
+  result3: `${__dirname}/../__fixtures__/plainFomatDirectOrder.txt`,
+  result4: `${__dirname}/../__fixtures__/plainFomatReversOrder.txt`,
+  result5: `${__dirname}/../__fixtures__/jsonFormatDirectOrder.txt`,
 };
 
 const correctFiles = {
