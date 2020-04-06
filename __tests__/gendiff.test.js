@@ -22,18 +22,12 @@ const getOutputFile = (order, format) => {
   return fs.readFileSync(filePath, 'utf-8');
 };
 
-const getInputFilesPath = (order, type) => {
-  switch (order) {
-    case 'directOrder':
-      return [`${fixturesPath}before.${type}`, `${fixturesPath}after.${type}`];
-    case 'reversOrder':
-      return [`${fixturesPath}after.${type}`, `${fixturesPath}before.${type}`];
-    default:
-      console.log('wrong order');
-      break;
-  }
-  return false;
-};
+const filesOrders = {
+  directOrder: (type) => [`${fixturesPath}before.${type}`, `${fixturesPath}after.${type}`],
+  reversOrder: (type) => [`${fixturesPath}after.${type}`, `${fixturesPath}before.${type}`],
+}
+
+const getInputFilesPath = (order, type) => filesOrders[order](type);
 
 describe.each(inputFileTypes)('type %s', (type) => {
   test.each(tests)(
