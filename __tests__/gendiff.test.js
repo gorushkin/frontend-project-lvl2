@@ -20,7 +20,7 @@ const tests = [
 const getOutputFile = (order, format) => {
   const filePath = `${fixturesPath}${format}Format-${order}.txt`;
   return fs.readFileSync(filePath, 'utf-8');
-}
+};
 
 const getInputFilesPath = (order, type) => {
   switch (order) {
@@ -32,12 +32,12 @@ const getInputFilesPath = (order, type) => {
       console.log('wrong order');
       break;
   }
-  return [file1, file2];
-}
+  return false;
+};
 
 describe.each(inputFileTypes)('type %s', (type) => {
   test.each(tests)(
-    `test direction %s --format %s`,
+    'test direction %s --format %s',
     (order, format) => {
       const [file1, file2] = getInputFilesPath(order, type);
       const expectedResult = getOutputFile(order, format);
