@@ -25,7 +25,7 @@ const getOutputFile = (order, format) => {
 const filesOrders = {
   directOrder: (type) => [`${fixturesPath}before.${type}`, `${fixturesPath}after.${type}`],
   reversOrder: (type) => [`${fixturesPath}after.${type}`, `${fixturesPath}before.${type}`],
-}
+};
 
 const getInputFilesPath = (order, type) => filesOrders[order](type);
 

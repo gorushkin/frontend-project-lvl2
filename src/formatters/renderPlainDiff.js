@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import sortArr from './utils'
+import sortArr from './utils';
 
 const stringify = (obj) => {
   if (typeof obj === 'object') {
