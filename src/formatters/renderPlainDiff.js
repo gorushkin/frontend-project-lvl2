@@ -1,20 +1,11 @@
 import _ from 'lodash';
+import sortArr from './utils'
 
 const stringify = (obj) => {
   if (typeof obj === 'object') {
     return '[complex value]';
   }
   return obj;
-};
-
-const sortArr = (arr) => {
-  const result = arr.slice().sort((a, b) => {
-    if (a.key >= b.key) {
-      return 1;
-    }
-    return -1;
-  });
-  return result;
 };
 
 const renderPlainDiff = (array) => {

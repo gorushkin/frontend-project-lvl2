@@ -1,14 +1,5 @@
 import _ from 'lodash';
-
-const sortArr = (arr) => {
-  const result = arr.slice().sort((a, b) => {
-    if (a.key >= b.key) {
-      return 1;
-    }
-    return -1;
-  });
-  return result;
-};
+import sortArr from './utils'
 
 const stringify = (obj, depth) => {
   if (typeof obj === 'object') {
