@@ -33,9 +33,9 @@ describe.each(inputFileTypes)('type %s', (type) => {
   test.each(tests)(
     'test direction %s --format %s',
     (order, format) => {
-      const [file1, file2] = getInputFilesPath(order, type);
+      const [path1, path2] = getInputFilesPath(order, type);
       const expectedResult = getOutputFile(order, format);
-      const result = gendiff(file1, file2, format);
+      const result = gendiff(path1, path2, format);
       expect(result).toEqual(expectedResult);
     },
   );
