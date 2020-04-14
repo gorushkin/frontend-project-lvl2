@@ -17,13 +17,13 @@ const renderPlainDiff = (array) => {
         const children = iter(note.children, currentPath);
         return [...acc, ...children];
       }
-      if (_.has(note, 'value2')) {
-        if (_.has(note, 'value1')) {
-          if (note.value1 === note.value2) {
+      if (_.has(note, 'after')) {
+        if (_.has(note, 'before')) {
+          if (note.before === note.after) {
             return acc;
-          } return [...acc, `Property '${path}${note.key}' was changed from ${stringify(note.value1)} to ${stringify(note.value2)}`];
+          } return [...acc, `Property '${path}${note.key}' was changed from ${stringify(note.before)} to ${stringify(note.after)}`];
         }
-        return [...acc, `Property '${path}${note.key}' was added with value: ${stringify(note.value2)}`];
+        return [...acc, `Property '${path}${note.key}' was added with value: ${stringify(note.after)}`];
       }
       return [...acc, `Property '${path}${note.key}' was deleted`];
     }, []);

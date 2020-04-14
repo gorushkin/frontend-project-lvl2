@@ -20,15 +20,15 @@ const renderFullDiff = (array) => {
         const children = iter(note.children, depth + 2);
         return [...acc, `${spaces}  ${note.key}: {`, ...children, `  ${spaces}}`];
       }
-      if (_.has(note, 'value2')) {
-        if (_.has(note, 'value1')) {
-          if (note.value1 === note.value2) {
-            return [...acc, `${spaces}  ${note.key}: ${note.value1}`];
-          } return [...acc, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`];
+      if (_.has(note, 'after')) {
+        if (_.has(note, 'before')) {
+          if (note.before === note.after) {
+            return [...acc, `${spaces}  ${note.key}: ${note.before}`];
+          } return [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`];
         }
-        return [...acc, `${spaces}+ ${note.key}: ${stringify(note.value2, depth)}`];
+        return [...acc, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`];
       }
-      return [...acc, `${spaces}- ${note.key}: ${stringify(note.value1, depth)}`];
+      return [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`];
     }, []);
     return result;
   };

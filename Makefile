@@ -1,26 +1,14 @@
 install:
 	npm install
 
-json:
-	npx babel-node src/bin/gendiff.js __fixtures__/before.json __fixtures__/after.json
-
-plainjson:
-	npx babel-node src/bin/gendiff.js --format plain __fixtures__/after.json __fixtures__/before.json
-
-jsonjson:
+start:
 	npx babel-node src/bin/gendiff.js --format json __fixtures__/before.json __fixtures__/after.json
 
-yml:
-	npx babel-node src/bin/gendiff.js __fixtures__/before.yml __fixtures__/after.yml
-
-ini:
-	npx babel-node src/bin/gendiff.js __fixtures__/before.ini __fixtures__/after.ini
+json:
+	npx babel-node src/bin/gendiff.js --format json __fixtures__/beforetemp.json __fixtures__/aftertemp.json
 
 test:
 	npm test
-
-start:
-	npx babel-node src/index.js
 
 temp:
 	node src/test/plain_diff.js
