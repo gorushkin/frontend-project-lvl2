@@ -11,7 +11,7 @@ const stringify = (obj, depth) => {
   return obj;
 };
 
-const generateNotes = {
+const notesGenerators = {
   unchanged: (acc, spaces, note, depth) => [...acc, `${spaces}  ${note.key}: ${note.before}`],
   changed: (acc, spaces, note, depth) => [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`],
   added: (acc, spaces, note, depth) => [...acc, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`],
@@ -27,7 +27,7 @@ const renderFullDiff = (array) => {
         const children = iter(note.children, depth + 2);
         return [...acc, `${spaces}  ${note.key}: {`, ...children, `  ${spaces}}`];
       }
-      return generateNotes[note.status](acc, spaces, note, depth);
+      return notesGenerators[note.status](acc, spaces, note, depth);
 
     }, []);
     return result;

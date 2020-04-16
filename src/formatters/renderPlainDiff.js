@@ -8,6 +8,13 @@ const stringify = (obj) => {
   return obj;
 };
 
+const notesGenerators = {
+  unchanged: (acc) => acc,
+  changed: (acc, note, path) => [...acc, `Property '${path}${note.key}' was changed from ${stringify(note.before)} to ${stringify(note.after)}`],
+  added: (acc, note, path) => [...acc, `Property '${path}${note.key}' was added with value: ${stringify(note.after)}`],
+  removed: (acc, note, path) => [...acc, `Property '${path}${note.key}' was deleted`],
+}
+
 const renderPlainDiff = (array) => {
   const iter = (diff, path) => {
     const sortedDiff = sortArr(diff);
@@ -17,15 +24,8 @@ const renderPlainDiff = (array) => {
         const children = iter(note.children, currentPath);
         return [...acc, ...children];
       }
-      if (_.has(note, 'after')) {
-        if (_.has(note, 'before')) {
-          if (note.before === note.after) {
-            return acc;
-          } return [...acc, `Property '${path}${note.key}' was changed from ${stringify(note.before)} to ${stringify(note.after)}`];
-        }
-        return [...acc, `Property '${path}${note.key}' was added with value: ${stringify(note.after)}`];
-      }
-      return [...acc, `Property '${path}${note.key}' was deleted`];
+      return notesGenerators[note.status](acc, note, path);
+
     }, []);
     return result;
   };
