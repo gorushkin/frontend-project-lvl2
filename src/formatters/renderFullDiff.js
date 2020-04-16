@@ -11,6 +11,13 @@ const stringify = (obj, depth) => {
   return obj;
 };
 
+const generateNotes = {
+  unchanged: (acc, spaces, note, depth) => [...acc, `${spaces}  ${note.key}: ${note.before}`],
+  changed: (acc, spaces, note, depth) => [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`],
+  added: (acc, spaces, note, depth) => [...acc, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`],
+  removed: (acc, spaces, note, depth) => [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`],
+}
+
 const renderFullDiff = (array) => {
   const iter = (diff, depth) => {
     const spaces = '  '.repeat(depth);
@@ -20,19 +27,11 @@ const renderFullDiff = (array) => {
         const children = iter(note.children, depth + 2);
         return [...acc, `${spaces}  ${note.key}: {`, ...children, `  ${spaces}}`];
       }
-      if (_.has(note, 'after')) {
-        if (_.has(note, 'before')) {
-          if (note.before === note.after) {
-            return [...acc, `${spaces}  ${note.key}: ${note.before}`];
-          } return [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`];
-        }
-        return [...acc, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`];
-      }
-      return [...acc, `${spaces}- ${note.key}: ${stringify(note.before, depth)}`];
+      return generateNotes[note.status](acc, spaces, note, depth);
+
     }, []);
     return result;
   };
-
   const finishArray = iter(array, 1);
   const result = `{\n${finishArray.join('\n')}\n}`;
   return result;

@@ -8,7 +8,6 @@ const generateDiff = (obj1, obj2) => {
     };
     if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
       diff.children = generateDiff(obj1[key], obj2[key]);
-      diff.status = 'object';
       return [...acc, diff];
     }
     if (_.has(obj1, key)) {
