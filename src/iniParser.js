@@ -5,7 +5,7 @@ const changeStrToInt = (obj) => {
   const modifiedObj = keys.reduce((acc, key) => {
     const currentNote = {};
     if (typeof obj[key] === 'object') {
-      currentNote[key] = removeElements(obj[key]);
+      currentNote[key] = changeStrToInt(obj[key]);
       return {
         ...acc,
         ...currentNote
