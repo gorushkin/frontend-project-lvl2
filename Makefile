@@ -10,6 +10,9 @@ json:
 ini:
 	npx babel-node src/bin/gendiff.js --format json __fixtures__/before.ini __fixtures__/after.ini
 
+short:
+	npx babel-node src/bin/gendiff.js __fixtures__/before_copy.json __fixtures__/after_copy.json
+
 test:
 	npm test
 
