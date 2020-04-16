@@ -17,5 +17,6 @@ export default (path) => {
   const data = readFile(path);
   const fileExtension = getFileExtension(path);
   const config = parse(data, fileExtension);
+  // console.log(config);
   return config;
 };

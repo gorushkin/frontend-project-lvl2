@@ -23,5 +23,3 @@ const renderJsonDiff = (data) => {
 };
 
 export default renderJsonDiff;
-
-// const js = 

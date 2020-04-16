@@ -7,6 +7,9 @@ start:
 json:
 	npx babel-node src/bin/gendiff.js --format json __fixtures__/beforetemp.json __fixtures__/aftertemp.json
 
+ini:
+	npx babel-node src/bin/gendiff.js --format json __fixtures__/before.ini __fixtures__/after.ini
+
 test:
 	npm test
 
