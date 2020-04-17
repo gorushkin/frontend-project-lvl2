@@ -4,7 +4,7 @@ const generateDiff = (obj1, obj2) => {
   const allKeys = _.union(_.keys(obj1), _.keys(obj2));
   const result = allKeys.reduce((acc, key) => {
     const diff = {
-      key
+      key,
     };
     if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
       diff.children = generateDiff(obj1[key], obj2[key]);

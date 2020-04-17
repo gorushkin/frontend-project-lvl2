@@ -13,7 +13,7 @@ const notesGenerators = {
   changed: (acc, note, path) => [...acc, `Property '${path}${note.key}' was changed from ${stringify(note.before)} to ${stringify(note.after)}`],
   added: (acc, note, path) => [...acc, `Property '${path}${note.key}' was added with value: ${stringify(note.after)}`],
   removed: (acc, note, path) => [...acc, `Property '${path}${note.key}' was deleted`],
-}
+};
 
 const renderPlainDiff = (array) => {
   const iter = (diff, path) => {
@@ -25,7 +25,6 @@ const renderPlainDiff = (array) => {
         return [...acc, ...children];
       }
       return notesGenerators[note.status](acc, note, path);
-
     }, []);
     return result;
   };

@@ -4,7 +4,7 @@ import sortArr from './utils';
 const renderJsonDiff = (data) => {
   const iter = (diff) => {
     const sortedDiff = sortArr(diff);
-    const result = sortedDiff.map(note => {
+    const result = sortedDiff.map((note) => {
       if (_.has(note, 'children')) {
         const children = iter(note.children);
         const newNote = {};
@@ -13,7 +13,7 @@ const renderJsonDiff = (data) => {
         return newNote;
       }
       return note;
-    })
+    });
     return result;
   };
 

@@ -16,7 +16,7 @@ const notesGenerators = {
   changed: (spaces, note, depth) => [`${spaces}- ${note.key}: ${stringify(note.before, depth)}`, `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`],
   added: (spaces, note, depth) => [`${spaces}+ ${note.key}: ${stringify(note.after, depth)}`],
   removed: (spaces, note, depth) => [`${spaces}- ${note.key}: ${stringify(note.before, depth)}`],
-}
+};
 
 const renderFullDiff = (array) => {
   const iter = (diff, depth) => {

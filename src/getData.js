@@ -13,9 +13,9 @@ const getFileExtension = (filePath) => {
   return path.extname(absPath).substring(1);
 };
 
-export default (path) => {
-  const data = readFile(path);
-  const fileExtension = getFileExtension(path);
+export default (filePath) => {
+  const data = readFile(filePath);
+  const fileExtension = getFileExtension(filePath);
   const config = parse(data, fileExtension);
   return config;
 };

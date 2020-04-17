@@ -8,28 +8,28 @@ const changeStrToInt = (obj) => {
       currentNote[key] = changeStrToInt(obj[key]);
       return {
         ...acc,
-        ...currentNote
+        ...currentNote,
       };
     }
-    const value = parseInt(obj[key]);
+    const value = parseInt(obj[key], 10);
     if (!Number.isNaN(value)) {
       currentNote[key] = value;
       return {
         ...acc,
-        ...currentNote
+        ...currentNote,
       };
     }
     currentNote[key] = obj[key];
     return {
       ...acc,
-      ...currentNote
+      ...currentNote,
     };
-  }, {})
+  }, {});
   return modifiedObj;
-}
+};
 
 export default (data) => {
   const parsedData = INI.parse(data);
   const modifiedData = changeStrToInt(parsedData);
   return modifiedData;
-}
+};
