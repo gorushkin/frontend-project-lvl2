@@ -31,8 +31,8 @@ const renderFullDiff = (array) => {
     });
     return result;
   };
-  const rowArrow = iter(array, 1);
-  const flatedArr = _.flattenDeep(rowArrow);
+  const rawArrow = iter(array, 1);
+  const flatedArr = _.flattenDeep(rawArrow);
   const result = `{\n${flatedArr.join('\n')}\n}`;
   return result;
 };
