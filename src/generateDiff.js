@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getDiff = (key, obj1, obj2) => {
+const getCurrentDiff = (key, obj1, obj2) => {
   if (_.has(obj1, key)) {
     const before = obj1[key];
     if (_.has(obj2, key)) {
@@ -53,7 +53,7 @@ const generateDiff = (obj1, obj2) => {
       };
       return [...acc, parentNode];
     }
-    const currentNode = getDiff(key, obj1, obj2);
+    const currentNode = getCurrentDiff(key, obj1, obj2);
     return [...acc, currentNode];
   }, []);
   return result;

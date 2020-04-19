@@ -3,23 +3,20 @@ import INI from 'ini';
 const changeStrToInt = (obj) => {
   const keys = Object.keys(obj);
   const modifiedObj = keys.reduce((acc, key) => {
-    const currentNote = {};
     if (typeof obj[key] === 'object') {
-      currentNote[key] = changeStrToInt(obj[key]);
+      const parentNode = {
+        [key]: changeStrToInt(obj[key]),
+      };
       return {
         ...acc,
-        ...currentNote,
+        ...parentNode,
       };
     }
     const value = parseInt(obj[key], 10);
-    if (!Number.isNaN(value)) {
-      currentNote[key] = value;
-      return {
-        ...acc,
-        ...currentNote,
-      };
-    }
-    currentNote[key] = obj[key];
+    const keyValue = (!Number.isNaN(value)) ? value : obj[key];
+    const currentNote = {
+      [key]: keyValue,
+    };
     return {
       ...acc,
       ...currentNote,
