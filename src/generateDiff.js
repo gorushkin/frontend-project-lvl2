@@ -1,25 +1,35 @@
 import _ from 'lodash';
 
 const getDiff = (key, obj1, obj2) => {
-    const diff = { key }
-    if (_.has(obj1, key)) {
-      diff.before = obj1[key];
-      if (_.has(obj2, key)) {
-        diff.after = obj2[key];
-        if ((diff.before === diff.after)) {
-          diff.status = 'unchanged';
-        } else {
-          diff.status = 'changed';
-        }
-      } else {
-        diff.status = 'removed';
+  if (_.has(obj1, key)) {
+    if (_.has(obj2, key)) {
+      if ((obj1[key] === obj2[key])) {
+        return {
+          key,
+          before: obj1[key],
+          after: obj2[key],
+          status: 'unchanged',
+        };
       }
-    } else {
-      diff.after = obj2[key];
-      diff.status = 'added';
+      return {
+        key,
+        before: obj1[key],
+        after: obj2[key],
+        status: 'changed',
+      };
     }
-    return diff;
-}
+    return {
+      key,
+      before: obj1[key],
+      status: 'removed',
+    };
+  }
+  return {
+    key,
+    after: obj2[key],
+    status: 'added',
+  };
+};
 
 const generateDiff = (obj1, obj2) => {
   const allKeys = _.union(_.keys(obj1), _.keys(obj2));
@@ -28,14 +38,12 @@ const generateDiff = (obj1, obj2) => {
       const children = generateDiff(obj1[key], obj2[key]);
       const parentNode = {
         key,
-        children
-      }
+        children,
+      };
       return [...acc, parentNode];
     }
-        // const beforeValue = (_.has(obj1, key)) ? obj1[key] : false;
-    // const afterValue = (_.has(obj2, key)) ? obj2[key] : false;
-    const diff = getDiff(key, obj1, obj2);
-    return [...acc, diff];
+    const currentNode = getDiff(key, obj1, obj2);
+    return [...acc, currentNode];
   }, []);
   return result;
 };
