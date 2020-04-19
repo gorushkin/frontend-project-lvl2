@@ -2,33 +2,44 @@ import _ from 'lodash';
 
 const getDiff = (key, obj1, obj2) => {
   if (_.has(obj1, key)) {
+    const before = obj1[key];
     if (_.has(obj2, key)) {
-      if ((obj1[key] === obj2[key])) {
-        return {
+      const after = obj2[key];
+      if (before === after) {
+        const status = 'unchanged';
+        const diff = {
           key,
-          before: obj1[key],
-          after: obj2[key],
-          status: 'unchanged',
+          before,
+          after,
+          status,
         };
+        return diff;
       }
-      return {
+      const status = 'changed';
+      const diff = {
         key,
-        before: obj1[key],
-        after: obj2[key],
-        status: 'changed',
+        before,
+        after,
+        status,
       };
+      return diff;
     }
-    return {
+    const status = 'removed';
+    const diff = {
       key,
-      before: obj1[key],
-      status: 'removed',
+      before,
+      status,
     };
+    return diff;
   }
-  return {
+  const after = obj2[key];
+  const status = 'added';
+  const diff = {
     key,
-    after: obj2[key],
-    status: 'added',
+    after,
+    status,
   };
+  return diff;
 };
 
 const generateDiff = (obj1, obj2) => {
