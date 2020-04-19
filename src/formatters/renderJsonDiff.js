@@ -7,9 +7,8 @@ const renderJsonDiff = (data) => {
     const result = sortedDiff.map((note) => {
       if (_.has(note, 'children')) {
         const children = iter(note.children);
-        const newNote = {};
-        newNote.key = note.key;
-        newNote.children = children;
+        const { key } = note;
+        const newNote = { key, children };
         return newNote;
       }
       return note;

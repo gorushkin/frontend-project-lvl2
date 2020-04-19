@@ -8,36 +8,26 @@ const getCurrentDiff = (key, obj1, obj2) => {
       if (before === after) {
         const status = 'unchanged';
         const diff = {
-          key,
-          before,
-          after,
-          status,
+          key, before, after, status,
         };
         return diff;
       }
       const status = 'changed';
       const diff = {
-        key,
-        before,
-        after,
-        status,
+        key, before, after, status,
       };
       return diff;
     }
     const status = 'removed';
     const diff = {
-      key,
-      before,
-      status,
+      key, before, status,
     };
     return diff;
   }
   const after = obj2[key];
   const status = 'added';
   const diff = {
-    key,
-    after,
-    status,
+    key, after, status,
   };
   return diff;
 };
@@ -48,8 +38,7 @@ const generateDiff = (obj1, obj2) => {
     if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
       const children = generateDiff(obj1[key], obj2[key]);
       const parentNode = {
-        key,
-        children,
+        key, children,
       };
       return [...acc, parentNode];
     }
