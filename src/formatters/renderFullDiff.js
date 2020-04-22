@@ -23,15 +23,14 @@ const renderFullDiff = (array) => {
     const result = diff.map((note) => {
       if (_.has(note, 'children')) {
         const children = iter(note.children, depth + 2);
-        return [`${spaces}  ${note.key}: {\n`, ...children, `  ${spaces}}\n`];
+        return `${spaces}  ${note.key}: {\n${children.join('')}  ${spaces}}\n`;
       }
       return notesGenerators[note.status](spaces, note, depth);
     });
     return result;
   };
   const rawArrow = iter(array, 1);
-  const flatedArr = _.flattenDeep(rawArrow);
-  const result = `{\n${flatedArr.join('')}}`;
+  const result = `{\n${rawArrow.join('')}}`;
   return result;
 };
 
