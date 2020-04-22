@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import sortArr from './utils';
 
 const stringify = (obj) => {
   if (typeof obj === 'object') {
@@ -17,8 +16,7 @@ const notesGenerators = {
 
 const renderPlainDiff = (array) => {
   const iter = (diff, path) => {
-    const sortedDiff = sortArr(diff);
-    const result = sortedDiff.map((note) => {
+    const result = diff.map((note) => {
       if (_.has(note, 'children')) {
         const currentPath = `${path}${note.key}.`;
         const children = iter(note.children, currentPath);

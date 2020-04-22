@@ -1,23 +1,5 @@
-import _ from 'lodash';
-import sortArr from './utils';
-
 const renderJsonDiff = (data) => {
-  const iter = (diff) => {
-    const sortedDiff = sortArr(diff);
-    const result = sortedDiff.map((note) => {
-      if (_.has(note, 'children')) {
-        const children = iter(note.children);
-        const { key } = note;
-        const newNote = { key, children };
-        return newNote;
-      }
-      return note;
-    });
-    return result;
-  };
-
-  const fullSortedData = iter(data);
-  const result = JSON.stringify(fullSortedData);
+  const result = JSON.stringify(data);
   return result;
 };
 

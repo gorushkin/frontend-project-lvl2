@@ -1,14 +1,13 @@
 import _ from 'lodash';
-import sortArr from './utils';
 
 const stringify = (obj, depth) => {
-  if (typeof obj === 'object') {
-    const spaces = '  '.repeat(depth + 1);
-    const notes = Object.keys(obj).map((key) => `${spaces}    ${key}: ${obj[key]}`);
-    const result = [`{\n${notes.join('\n')}\n${spaces}}`];
-    return result;
+  if (typeof obj !== 'object') {
+    return obj;
   }
-  return obj;
+  const spaces = '  '.repeat(depth + 1);
+  const notes = Object.keys(obj).map((key) => `${spaces}    ${key}: ${obj[key]}`);
+  const result = [`{\n${notes.join('\n')}\n${spaces}}`];
+  return result;
 };
 
 const notesGenerators = {
@@ -21,8 +20,7 @@ const notesGenerators = {
 const renderFullDiff = (array) => {
   const iter = (diff, depth) => {
     const spaces = '  '.repeat(depth);
-    const sortedDiff = sortArr(diff);
-    const result = sortedDiff.map((note) => {
+    const result = diff.map((note) => {
       if (_.has(note, 'children')) {
         const children = iter(note.children, depth + 2);
         return [`${spaces}  ${note.key}: {`, ...children, `  ${spaces}}`];
