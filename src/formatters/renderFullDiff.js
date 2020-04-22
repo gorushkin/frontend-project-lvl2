@@ -6,7 +6,7 @@ const stringify = (obj, depth) => {
   }
   const spaces = '  '.repeat(depth + 1);
   const notes = Object.keys(obj).map((key) => `${spaces}    ${key}: ${obj[key]}`);
-  const result = [`{\n${notes.join('\n')}\n${spaces}}\n`];
+  const result = `{\n${notes.join('\n')}\n${spaces}}\n`;
   return result;
 };
 
