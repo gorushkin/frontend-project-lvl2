@@ -13,10 +13,11 @@ const sortArr = (arr) => {
 const sortData = (data) => {
   const sortedDiff = sortArr(data);
   const result = sortedDiff.map((note) => {
-    if (_.has(note, 'children')) {
+    if (note.type === 'parent') {
       const children = sortData(note.children);
       const { key } = note;
-      const newNote = { key, children };
+      const { type } = note;
+      const newNote = { key, type, children };
       return newNote;
     }
     return note;
@@ -27,25 +28,29 @@ const sortData = (data) => {
 const getCurrentDiff = (key, obj1, obj2) => {
   if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
     const children = generateDiff(obj1[key], obj2[key]);
-    const parentNode = { key, children };
+    const type = 'parent';
+    const parentNode = { key, type, children };
     return parentNode;
   }
   if ((_.has(obj1, key)) && (_.has(obj2, key))) {
     const before = obj1[key];
     const after = obj2[key];
+    const type = 'child';
     const status = (before === after) ? 'unchanged' : 'changed';
-    const diff = { key, before, after, status };
+    const diff = { key, type, before, after, status };
     return diff;
   }
   if ((_.has(obj1, key)) && !(_.has(obj2, key))) {
     const before = obj1[key];
+    const type = 'child';
     const status = 'removed';
-    const diff = { key, before, status };
+    const diff = { key, type, before, status };
     return diff;
   }
   const after = obj2[key];
+  const type = 'child';
   const status = 'added';
-  const diff = { key, after, status };
+  const diff = { key, type, after, status };
   return diff;
 };
 
@@ -55,8 +60,14 @@ const generateDiff = (obj1, obj2) => {
     const currentNode = getCurrentDiff(key, obj1, obj2);
     return currentNode;
   });
-  const result = sortData(unsortedData);
+  const result = unsortedData;
   return result;
 };
 
-export default generateDiff;
+export default(obj1, obj2) => {
+  const unsortedDiff = generateDiff(obj1, obj2);
+  const resultDiff = sortData(unsortedDiff);
+  return resultDiff;
+}
+
+// export default generateDiff;

@@ -21,7 +21,7 @@ const renderFullDiff = (array) => {
   const iter = (diff, depth) => {
     const spaces = '  '.repeat(depth);
     const result = diff.map((note) => {
-      if (_.has(note, 'children')) {
+      if (note.type === 'parent') {
         const children = iter(note.children, depth + 2);
         return `${spaces}  ${note.key}: {\n${children.join('')}  ${spaces}}\n`;
       }

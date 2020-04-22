@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import parse from './parsers';
 
 const readFile = (filePath) => {
   const absPath = path.resolve(filePath);
@@ -16,6 +15,5 @@ const getFileExtension = (filePath) => {
 export default (filePath) => {
   const data = readFile(filePath);
   const fileExtension = getFileExtension(filePath);
-  const config = parse(data, fileExtension);
-  return config;
+  return { data, fileExtension };
 };
