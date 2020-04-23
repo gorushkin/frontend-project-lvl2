@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const stringify = (obj, depth) => {
   if (typeof obj !== 'object') {
     return `${obj}\n`;

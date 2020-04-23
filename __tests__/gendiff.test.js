@@ -27,7 +27,7 @@ const getInputFilesPath = (fileName1, fileName2, type) => {
   const path1 = getFixturesPath(`${fileName1}.${type}`);
   const path2 = getFixturesPath(`${fileName2}.${type}`);
   return [path1, path2];
-}
+};
 
 describe.each(inputFileTypes)('type %s', (type) => {
   test.each(tests)(`%s.${type}, %s.${type} --format %s`, (fileName1, fileName2, format, outputFileName) => {
@@ -35,5 +35,5 @@ describe.each(inputFileTypes)('type %s', (type) => {
     const expectedResult = getOutputFile(outputFileName);
     const result = gendiff(path1, path2, format);
     expect(result).toEqual(expectedResult);
-  })
+  });
 });
