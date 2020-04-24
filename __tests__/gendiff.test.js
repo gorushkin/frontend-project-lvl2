@@ -1,7 +1,8 @@
 import fs from 'fs';
+import path from 'path';
 import gendiff from '../src/index';
 
-const getFixturesPath = (path) => `${__dirname}/../__fixtures__/${path}`;
+const getFilePath = (fileName) => path.join(__dirname, '..', '/__fixtures__/', fileName);
 
 const inputFileTypes = [
   ['json'],
@@ -19,13 +20,13 @@ const tests = [
 ];
 
 const getOutputFile = (name) => {
-  const filePath = getFixturesPath(`${name}`);
+  const filePath = getFilePath(`${name}`);
   return fs.readFileSync(filePath, 'utf-8');
 };
 
 const getInputFilesPath = (fileName1, fileName2, type) => {
-  const path1 = getFixturesPath(`${fileName1}.${type}`);
-  const path2 = getFixturesPath(`${fileName2}.${type}`);
+  const path1 = getFilePath(`${fileName1}.${type}`);
+  const path2 = getFilePath(`${fileName2}.${type}`);
   return [path1, path2];
 };
 
