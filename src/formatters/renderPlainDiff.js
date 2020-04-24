@@ -25,9 +25,9 @@ const renderPlainDiff = (array) => {
     return result;
   };
 
-  const rawArray = iter(array, '');
-  const flatedArr = _.flattenDeep(rawArray);
-  const result = `${flatedArr.join('\n')}`;
+  const rawData = iter(array, '');
+  const flatedData = _.flattenDeep(rawData);
+  const result = `${flatedData.join('\n')}`;
   return result;
 };
 

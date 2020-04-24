@@ -27,8 +27,8 @@ const renderFullDiff = (array) => {
     });
     return result;
   };
-  const rawArrow = iter(array, 1);
-  const result = `{\n${rawArrow.join('')}}`;
+  const rawData = iter(array, 1);
+  const result = `{\n${rawData.join('')}}`;
   return result;
 };
 
