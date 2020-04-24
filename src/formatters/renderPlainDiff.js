@@ -1,26 +1,24 @@
 import _ from 'lodash';
 
 const stringify = (obj) => {
-  if (typeof obj === 'object') {
-    return '[complex value]';
-  }
-  return obj;
+  const result = (typeof obj === 'object') ? '[complex value]' : obj;
+  return result;
 };
 
 const notesGenerators = {
   unchanged: () => [],
-  changed: (note, path) => [`Property '${path}${note.key}' was changed from ${stringify(note.before)} to ${stringify(note.after)}`],
-  added: (note, path) => [`Property '${path}${note.key}' was added with value: ${stringify(note.after)}`],
-  removed: (note, path) => [`Property '${path}${note.key}' was deleted`],
+  changed: (note, path) => `Property '${path}${note.key}' was changed from ${stringify(note.before)} to ${stringify(note.after)}`,
+  added: (note, path) => `Property '${path}${note.key}' was added with value: ${stringify(note.after)}`,
+  removed: (note, path) => `Property '${path}${note.key}' was deleted`,
 };
 
 const renderPlainDiff = (array) => {
   const iter = (diff, path) => {
     const result = diff.map((note) => {
-      if (_.has(note, 'children')) {
+      if (note.type === 'parent') {
         const currentPath = `${path}${note.key}.`;
         const children = iter(note.children, currentPath);
-        return [...children];
+        return children;
       }
       return notesGenerators[note.status](note, path);
     }, []);
