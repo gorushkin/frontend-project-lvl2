@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-const sortArr = (arr) => {
-  const result = arr.slice().sort((a, b) => {
+const sortData = (data) => {
+  const result = data.slice().sort((a, b) => {
     if (a.key >= b.key) {
       return 1;
     }
@@ -10,11 +10,11 @@ const sortArr = (arr) => {
   return result;
 };
 
-const sortData = (data) => {
-  const sortedDiff = sortArr(data);
+const sortDiff = (data) => {
+  const sortedDiff = sortData(data);
   const result = sortedDiff.map((note) => {
     if (note.type === 'parent') {
-      const children = sortData(note.children);
+      const children = sortDiff(note.children);
       const { key } = note;
       const { type } = note;
       const newNote = { key, type, children };
@@ -65,6 +65,6 @@ const generateDiff = (obj1, obj2) => {
 
 export default (obj1, obj2) => {
   const unsortedDiff = generateDiff(obj1, obj2);
-  const resultDiff = sortData(unsortedDiff);
+  const resultDiff = sortDiff(unsortedDiff);
   return resultDiff;
 };

@@ -9,25 +9,25 @@ const stringify = (obj, depth) => {
 };
 
 const notesGenerators = {
-  unchanged: (spaces, note, depth) => `${spaces}  ${note.key}: ${stringify(note.before, depth)}`,
-  changed: (spaces, note, depth) => `${spaces}- ${note.key}: ${stringify(note.before, depth)}${spaces}+ ${note.key}: ${stringify(note.after, depth)}`,
-  added: (spaces, note, depth) => `${spaces}+ ${note.key}: ${stringify(note.after, depth)}`,
-  removed: (spaces, note, depth) => `${spaces}- ${note.key}: ${stringify(note.before, depth)}`,
+  unchanged: (spaces, node, depth) => `${spaces}  ${node.key}: ${stringify(node.before, depth)}`,
+  changed: (spaces, node, depth) => `${spaces}- ${node.key}: ${stringify(node.before, depth)}${spaces}+ ${node.key}: ${stringify(node.after, depth)}`,
+  added: (spaces, node, depth) => `${spaces}+ ${node.key}: ${stringify(node.after, depth)}`,
+  removed: (spaces, node, depth) => `${spaces}- ${node.key}: ${stringify(node.before, depth)}`,
 };
 
-const renderFullDiff = (array) => {
+const renderFullDiff = (data) => {
   const iter = (diff, depth) => {
     const spaces = '  '.repeat(depth);
-    const result = diff.map((note) => {
-      if (note.type === 'parent') {
-        const children = iter(note.children, depth + 2);
-        return `${spaces}  ${note.key}: {\n${children.join('')}  ${spaces}}\n`;
+    const result = diff.map((node) => {
+      if (node.type === 'parent') {
+        const children = iter(node.children, depth + 2);
+        return `${spaces}  ${node.key}: {\n${children.join('')}  ${spaces}}\n`;
       }
-      return notesGenerators[note.status](spaces, note, depth);
+      return notesGenerators[node.status](spaces, node, depth);
     });
     return result;
   };
-  const rawData = iter(array, 1);
+  const rawData = iter(data, 1);
   const result = `{\n${rawData.join('')}}`;
   return result;
 };

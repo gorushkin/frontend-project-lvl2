@@ -8,4 +8,4 @@ const formatters = {
   json: renderJsonDiff,
 };
 
-export default (array, option = 'full') => formatters[option](array);
+export default (data, option = 'full') => formatters[option](data);
