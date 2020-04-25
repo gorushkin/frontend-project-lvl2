@@ -44,15 +44,16 @@ const generateDiff = (obj1, obj2) => {
       };
       return diff;
     }
-    const type = 'child';
     if ((_.has(obj1, key))) {
       const before = obj1[key];
       const status = 'removed';
+      const type = 'child';
       const diff = {
         key, type, before, status,
       };
       return diff;
     }
+    const type = 'child';
     const after = obj2[key];
     const status = 'added';
     const diff = {
