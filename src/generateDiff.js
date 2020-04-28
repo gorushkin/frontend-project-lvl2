@@ -10,7 +10,6 @@ const sortData = (data) => {
   return result;
 };
 
-
 const generateDiff = (obj1, obj2) => {
   const allKeys = _.union(_.keys(obj1), _.keys(obj2));
   const sortedKeys = sortData(allKeys);

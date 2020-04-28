@@ -5,27 +5,27 @@ const stringify = (obj) => {
   return result;
 };
 
+const notesGenerators = {
+  parent: (node, path, fn) => {
+    const newPath = `${path}${node.key}.`;
+    const children = fn(node.children, newPath);
+    return children;
+  },
+  unchanged: () => [],
+  changed: (node, path) => `Property '${path}${node.key}' was changed from ${stringify(node.before)} to ${stringify(node.after)}`,
+  added: (node, path) => `Property '${path}${node.key}' was added with value: ${stringify(node.after)}`,
+  removed: (node, path) => `Property '${path}${node.key}' was deleted`,
+};
 
 const renderPlainDiff = (data) => {
   const iter = (diff, currentPath) => {
-    const notesGenerators = {
-      parent: (node, path) => {
-        const newPath = `${path}${node.key}.`;
-        const children = iter(node.children, newPath);
-        return children;
-      },
-      unchanged: () => [],
-      changed: (node, path) => `Property '${path}${node.key}' was changed from ${stringify(node.before)} to ${stringify(node.after)}`,
-      added: (node, path) => `Property '${path}${node.key}' was added with value: ${stringify(node.after)}`,
-      removed: (node, path) => `Property '${path}${node.key}' was deleted`,
-    };
-    const result = diff.map((node) => notesGenerators[node.type](node, currentPath));
+    const result = diff.map((node) => notesGenerators[node.type](node, currentPath, iter));
     return result;
   };
 
   const rawData = iter(data, '');
-  const flatedData = _.flattenDeep(rawData);
-  const result = `${flatedData.join('\n')}`;
+  const flattedData = _.flattenDeep(rawData);
+  const result = `${flattedData.join('\n')}`;
   return result;
 };
 

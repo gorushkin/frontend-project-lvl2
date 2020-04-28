@@ -8,21 +8,24 @@ const stringify = (obj, depth) => {
   return result;
 };
 
+const generateIndent = (depth) => '  '.repeat(depth);
+
+const notesGenerators = {
+  parent: (indent, node, depth, fn) => {
+    const children = fn(node.children, depth + 2);
+    return `${indent}  ${node.key}: {\n${children.join('')}  ${indent}}\n`;
+  },
+  unchanged: (indent, node, depth) => `${indent}  ${node.key}: ${stringify(node.before, depth)}`,
+  changed: (indent, node, depth) => `${indent}- ${node.key}: ${stringify(node.before, depth)}${indent}+ ${node.key}: ${stringify(node.after, depth)}`,
+  added: (indent, node, depth) => `${indent}+ ${node.key}: ${stringify(node.after, depth)}`,
+  removed: (indent, node, depth) => `${indent}- ${node.key}: ${stringify(node.before, depth)}`,
+};
+
 const renderFullDiff = (data) => {
   const iter = (diff, currentDepth) => {
-    const notesGenerators = {
-      parent: (spaces, node, depth) => {
-        const children = iter(node.children, depth + 2);
-        return `${spaces}  ${node.key}: {\n${children.join('')}  ${spaces}}\n`;
-      },
-      unchanged: (spaces, node, depth) => `${spaces}  ${node.key}: ${stringify(node.before, depth)}`,
-      changed: (spaces, node, depth) => `${spaces}- ${node.key}: ${stringify(node.before, depth)}${spaces}+ ${node.key}: ${stringify(node.after, depth)}`,
-      added: (spaces, node, depth) => `${spaces}+ ${node.key}: ${stringify(node.after, depth)}`,
-      removed: (spaces, node, depth) => `${spaces}- ${node.key}: ${stringify(node.before, depth)}`,
-    };
-    const generatedSpaces = '  '.repeat(currentDepth);
+    const indent = generateIndent(currentDepth);
     const result = diff
-      .map((node) => notesGenerators[node.type](generatedSpaces, node, currentDepth));
+      .map((node) => notesGenerators[node.type](indent, node, currentDepth, iter));
     return result;
   };
   const rawData = iter(data, 1);
