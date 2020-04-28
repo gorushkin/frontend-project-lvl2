@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const sortData = (data) => {
   const result = data.slice().sort((a, b) => {
-    if (a.key >= b.key) {
+    if (a >= b) {
       return 1;
     }
     return -1;
@@ -10,54 +10,47 @@ const sortData = (data) => {
   return result;
 };
 
-const sortDiff = (data) => {
-  const sortedDiff = sortData(data);
-  const result = sortedDiff.map((note) => {
-    if (note.type === 'parent') {
-      const children = sortDiff(note.children);
-      const { key } = note;
-      const { type } = note;
-      const newNote = { key, type, children };
-      return newNote;
-    }
-    return note;
-  });
-  return result;
-};
 
 const generateDiff = (obj1, obj2) => {
   const allKeys = _.union(_.keys(obj1), _.keys(obj2));
-  const result = allKeys.map((key) => {
-    if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
-      const children = generateDiff(obj1[key], obj2[key]);
+  const sortedKeys = sortData(allKeys);
+  const result = sortedKeys.map((key) => {
+    if (!_.has(obj1, key)) {
+      const type = 'added';
+      const after = obj2[key];
+      const diff = {
+        key, type, after,
+      };
+      return diff;
+    }
+    if (!_.has(obj2, key)) {
+      const type = 'removed';
+      const before = obj1[key];
+      const diff = {
+        key, type, before,
+      };
+      return diff;
+    }
+    const before = obj1[key];
+    const after = obj2[key];
+    if (_.isObject(before) && _.isObject(after)) {
+      const children = generateDiff(before, after);
       const type = 'parent';
-      const parentNode = { key, type, children };
+      const parentNode = {
+        key, type, children,
+      };
       return parentNode;
     }
-    if ((_.has(obj1, key)) && (_.has(obj2, key))) {
-      const before = obj1[key];
-      const after = obj2[key];
-      const type = 'child';
-      const status = (before === after) ? 'unchanged' : 'changed';
+    if (before === after) {
+      const type = 'unchanged';
       const diff = {
-        key, type, before, after, status,
+        key, type, before, after,
       };
       return diff;
     }
-    if ((_.has(obj1, key))) {
-      const before = obj1[key];
-      const status = 'removed';
-      const type = 'child';
-      const diff = {
-        key, type, before, status,
-      };
-      return diff;
-    }
-    const type = 'child';
-    const after = obj2[key];
-    const status = 'added';
+    const type = 'changed';
     const diff = {
-      key, type, after, status,
+      key, type, before, after,
     };
     return diff;
   });
@@ -65,7 +58,6 @@ const generateDiff = (obj1, obj2) => {
 };
 
 export default (obj1, obj2) => {
-  const unsortedDiff = generateDiff(obj1, obj2);
-  const resultDiff = sortDiff(unsortedDiff);
-  return resultDiff;
+  const result = generateDiff(obj1, obj2);
+  return result;
 };
