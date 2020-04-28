@@ -34,7 +34,7 @@ const generateDiff = (obj1, obj2) => {
     const after = obj2[key];
     if (_.isObject(before) && _.isObject(after)) {
       const children = generateDiff(before, after);
-      const type = 'parent';
+      const type = 'nested';
       const parentNode = {
         key, type, children,
       };

@@ -11,7 +11,7 @@ const stringify = (obj, depth) => {
 const generateIndent = (depth) => '  '.repeat(depth);
 
 const notesGenerators = {
-  parent: (indent, node, depth, fn) => {
+  nested: (indent, node, depth, fn) => {
     const children = fn(node.children, depth + 2);
     return `${indent}  ${node.key}: {\n${children.join('')}  ${indent}}\n`;
   },

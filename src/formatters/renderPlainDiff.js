@@ -6,7 +6,7 @@ const stringify = (obj) => {
 };
 
 const notesGenerators = {
-  parent: (node, path, fn) => {
+  nested: (node, path, fn) => {
     const newPath = `${path}${node.key}.`;
     const children = fn(node.children, newPath);
     return children;
