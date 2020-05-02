@@ -1,15 +1,5 @@
 import _ from 'lodash';
 
-const sortData = (data) => {
-  const result = data.slice().sort((a, b) => {
-    if (a >= b) {
-      return 1;
-    }
-    return -1;
-  });
-  return result;
-};
-
 const generateDiff = (obj1, obj2) => {
   const allKeys = _.union(_.keys(obj1), _.keys(obj2));
   const sortedKeys = allKeys.slice().sort();

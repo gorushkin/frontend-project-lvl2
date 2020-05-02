@@ -1,7 +1,9 @@
+import _ from 'lodash';
+
 const generateIndent = (depth) => '    '.repeat(depth);
 
 const stringify = (obj, depth) => {
-  if (typeof obj !== 'object') {
+  if (!_.isObject(obj)) {
     return obj;
   }
   const indent = generateIndent(depth );
