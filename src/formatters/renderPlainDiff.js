@@ -25,7 +25,7 @@ const renderPlainDiff = (data) => {
 
   const rawData = iter(data, '');
   const flattedData = _.flattenDeep(rawData);
-  const result = `${flattedData.join('\n')}`;
+  const result = flattedData.join('\n');
   return result;
 };
 

@@ -12,7 +12,7 @@ const sortData = (data) => {
 
 const generateDiff = (obj1, obj2) => {
   const allKeys = _.union(_.keys(obj1), _.keys(obj2));
-  const sortedKeys = sortData(allKeys);
+  const sortedKeys = allKeys.slice().sort();
   const result = sortedKeys.map((key) => {
     if (!_.has(obj1, key)) {
       const type = 'added';
